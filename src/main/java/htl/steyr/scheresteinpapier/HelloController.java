@@ -35,7 +35,7 @@ public class HelloController {
 
     public void mainProcess() {
         String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"};
-        computer = wahl[rand.nextInt(3)];
+        computer = wahl[rand.nextInt(4)];
         playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
     }
 
