@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,6 +17,8 @@ public class HelloController {
     public ImageView playerBox2; //Computer Bild
 
     private final Random rand = new Random();
+    public TextField SpielerHighscore;
+    public TextField ComputerHighscore;
     private String computer;
 
     public void onScissorsClicked(ActionEvent actionEvent) {
