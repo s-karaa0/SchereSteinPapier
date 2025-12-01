@@ -17,6 +17,6 @@
       <Text layoutX="184.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler2" />
       <ImageView fx:id="playerBox1" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerBox2" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="chooseWinner" layoutY="206.0" prefHeight="18.0" prefWidth="100.0" text="Wilkommen" />
+      <Label fx:id="chooseWinner" layoutX="310.0" layoutY="206.0" prefHeight="18.0" prefWidth="100.0" text="Wilkommen" />
    </children>
 </AnchorPane>
