@@ -16,17 +16,18 @@
       <Button layoutX="187.0" layoutY="452.0" mnemonicParsing="false" onAction="#onRockClicked" text="Stein" />
       <Button layoutX="249.0" layoutY="452.0" mnemonicParsing="false" onAction="#onPaperClicked" text="Papier" />
       <Text layoutX="184.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler1" />
-      <Text layoutX="184.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler2" />
+      <Text layoutX="184.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer" />
       <ImageView fx:id="playerBox1" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerBox2" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="176.0" layoutY="14.0" text="Highscore:" />
-      <TextField fx:id="SpielerHighscore" layoutX="143.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
-      <TextField fx:id="ComputerHighscore" layoutX="223.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="spielerHighscore" layoutX="143.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="computerHighscore" layoutX="223.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
       <Label layoutX="144.0" layoutY="31.0" text="Spieler1        Computer" />
       <Label layoutX="199.0" layoutY="25.0" prefHeight="65.0" prefWidth="9.0" text="|">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
+      <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" onAction="#resetButtonClicked" text="RESET" />
    </children>
 </AnchorPane>

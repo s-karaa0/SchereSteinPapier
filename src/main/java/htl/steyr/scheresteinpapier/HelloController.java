@@ -1,11 +1,7 @@
 package htl.steyr.scheresteinpapier;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -17,8 +13,8 @@ public class HelloController {
     public ImageView playerBox2; //Computer Bild
 
     private final Random rand = new Random();
-    public TextField SpielerHighscore;
-    public TextField ComputerHighscore;
+    public TextField spielerHighscore;
+    public TextField computerHighscore;
     private String computer;
 
     public void onScissorsClicked(ActionEvent actionEvent) {
@@ -42,4 +38,10 @@ public class HelloController {
         playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
     }
 
+    public void resetButtonClicked(ActionEvent actionEvent) {
+        playerBox1.setImage(null);
+        playerBox2.setImage(null);
+        spielerHighscore.setText("0");
+        computerHighscore.setText("0");
+    }
 }
