@@ -19,7 +19,8 @@
       <Text layoutX="184.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer" />
       <ImageView fx:id="playerBox1" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerBox2" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="176.0" layoutY="14.0" text="Highscore:" />
+       <Label fx:id="chooseWinner" layoutX="310.0" layoutY="206.0" prefHeight="18.0" prefWidth="100.0" text="Willkommen!!" />
+       <Label layoutX="176.0" layoutY="14.0" text="Highscore:" />
       <TextField fx:id="spielerHighscore" layoutX="143.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
       <TextField fx:id="computerHighscore" layoutX="223.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
       <Label layoutX="144.0" layoutY="31.0" text="Spieler1        Computer" />
