@@ -63,7 +63,7 @@ public class HelloController {
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
     public void mainProcess() {
-        String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
+        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"}; // Optionen
         computer = wahl[rand.nextInt(4)]; // zufällige Wahl des Computers
 
         pBar.setProgress(0);
@@ -149,7 +149,7 @@ public class HelloController {
             Media pick = new Media(getClass().getResource("/sounds/lease.mp3").toExternalForm());
             backgroundMusic = new MediaPlayer(pick);
 
-            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE); // speilt die mp3 endlos
+            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE); // spielt die mp3 endlos
             backgroundMusic.play();
 
         } catch (Exception e) {
