@@ -61,9 +61,6 @@ public class HelloController {
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
     public void mainProcess() {
-        spielerHighscore.setText(String.valueOf(highscoreSpieler));
-        computerHighscore.setText(String.valueOf(highscoreComputer));
-
         String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
         computer = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
 
@@ -84,6 +81,9 @@ public class HelloController {
             pause2.play();
         });
         pause1.play();
+
+        spielerHighscore.setText(String.valueOf(highscoreSpieler));
+        computerHighscore.setText(String.valueOf(highscoreComputer));
     }
 
 
