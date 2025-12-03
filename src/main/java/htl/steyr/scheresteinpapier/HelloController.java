@@ -6,7 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import java.util.Random;
 
 public class HelloController {
@@ -21,6 +22,7 @@ public class HelloController {
     public TextField computerHighscore;
     private String computer;
     public String playerChoice;
+    private MediaPlayer backgroundMusic;  //Hintergrundmusik
 
     private int highscoreSpieler = 0;
     private int highscoreComputer = 0;
@@ -32,7 +34,7 @@ public class HelloController {
      */
     public void onScissorsClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/schere.png"))));
-        playerChoice = "schere.png"; // saves players choice
+        playerChoice = "schere.png";
         mainProcess();
     }
 
@@ -42,7 +44,7 @@ public class HelloController {
      */
     public void onRockClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/stein.png"))));
-        playerChoice = "stein.png"; // saves players choice
+        playerChoice = "stein.png";
         mainProcess();
 
     }
@@ -52,7 +54,7 @@ public class HelloController {
      */
     public void onPaperClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/papier.png"))));
-        playerChoice = "papier.png"; // saves players choice
+        playerChoice = "papier.png";
         mainProcess();
     }
 
@@ -64,17 +66,15 @@ public class HelloController {
         String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
         computer = wahl[rand.nextInt(4)]; // zufällige Wahl des Computers
 
-        pBar.setProgress(0); // resette die bar jedes mal wenn main process aufgerufen wird
+        pBar.setProgress(0);
 
         PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
-        pause1.setOnFinished(e -> {// (e -> { ... }) ist ein Lambda: Kurzform für eine Methode, die auf das Ereignis e reagiert
-
+        pause1.setOnFinished(e -> {
             pBar.setProgress(0.34);
 
             PauseTransition pause2 = new PauseTransition(Duration.seconds(0.5));
             pause2.setOnFinished(ev -> {
                 pBar.setProgress(1.0);
-
                 playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
                 chooseAWinner();
             });
@@ -86,10 +86,6 @@ public class HelloController {
         computerHighscore.setText(String.valueOf(highscoreComputer));
     }
 
-
-    /**
-     * Bringt alles auf den Anfangszustand - das Spiel kann neu beginnen.
-     */
     public void resetButtonClicked(ActionEvent actionEvent) {
         playerBox1.setImage(null);
         playerBox2.setImage(null);
@@ -103,7 +99,6 @@ public class HelloController {
 
   // Vergleicht Wahl des Spielers und Computers und entscheidet bassierend darauf wer gewonnen hat
     public void chooseAWinner() {
-
         if (playerChoice.equals("schere.png") && computer.equals("papier.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
@@ -146,5 +141,19 @@ public class HelloController {
     public void onWellClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
         mainProcess();
+    }
+
+
+    public void initialize() {
+        try {
+            Media pick = new Media(getClass().getResource("/sounds/lease.mp3").toExternalForm());
+            backgroundMusic = new MediaPlayer(pick);
+
+            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE); // speilt die mp3 endlos
+            backgroundMusic.play();
+
+        } catch (Exception e) {
+            System.out.println("Musik konnte nicht geladen werden: " + e.getMessage());
+        }
     }
 }
