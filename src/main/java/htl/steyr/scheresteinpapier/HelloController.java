@@ -11,11 +11,14 @@ public class HelloController {
     public ProgressBar pBar;
     public ImageView playerBox1; //Spieler-Bild
     public ImageView playerBox2; //Computer-Bild
+    public Label chooseWinner;  // label that shows winner
+
 
     private final Random rand = new Random();
     public TextField spielerHighscore;
     public TextField computerHighscore;
     private String computer;
+    public String playerChoice;
 
     /**
      * Wenn der/die Spieler/in auf den Schere-Button drückt, soll der passender
@@ -24,6 +27,7 @@ public class HelloController {
      */
     public void onScissorsClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/schere.png"))));
+        playerChoice = "schere.png"; // saves players choice
         mainProcess();
     }
 
@@ -33,7 +37,9 @@ public class HelloController {
      */
     public void onRockClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/stein.png"))));
+        playerChoice = "stein.png"; // saves players choice
         mainProcess();
+
     }
 
     /**
@@ -41,6 +47,7 @@ public class HelloController {
      */
     public void onPaperClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/papier.png"))));
+        playerChoice = "papier.png"; // saves players choice
         mainProcess();
     }
 
@@ -56,6 +63,8 @@ public class HelloController {
 
         //der ausgwählter Text wird hinter dem URL eingesetzt, wodurch der passende Image-URL ensteht
         playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+
+        chooseAWinner();
     }
 
     /**
@@ -66,5 +75,44 @@ public class HelloController {
         playerBox2.setImage(null);
         spielerHighscore.setText("0");
         computerHighscore.setText("0");
+        chooseWinner.setText("Willkommen!!");
+        chooseWinner.setStyle("-fx-text-fill: black;"); // Farbe wird auf schwarz zurückgesetzt
+        chooseWinner.setEffect(null); // entfernt den Glow effekt
     }
+
+  // Vergleicht Wahl des Spielers und Computers und entscheidet bassierend darauf wer gewonnen hat
+    public void chooseAWinner() {
+
+        if (playerChoice.equals("schere.png") && computer.equals("papier.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals("stein.png") && computer.equals("schere.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals("papier.png") && computer.equals("stein.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals(computer)) {
+            chooseWinner.setText("Unentschieden!");
+            drawStyle();
+        } else {
+            chooseWinner.setText("Du verlierst!");
+            loseStyle();
+        }
+    }
+    private void winStyle() { // einfacher glow effekt wenn man gewinnt
+        chooseWinner.setStyle("-fx-text-fill: limegreen;");
+        chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
+    }
+
+    private void loseStyle() {// einfacher glow effekt wenn man verliert
+        chooseWinner.setStyle("-fx-text-fill: red;");
+        chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
+    }
+
+    private void drawStyle() {// einfacher glow effekt wenn es ein unentschieden ist
+        chooseWinner.setStyle("-fx-text-fill: gray;");
+        chooseWinner.setEffect(new javafx.scene.effect.Glow(0.3));
+    }
+
 }
