@@ -22,6 +22,9 @@ public class HelloController {
     private String computer;
     public String playerChoice;
 
+    private int highscoreSpieler = 0;
+    private int highscoreComputer = 0;
+
     /**
      * Wenn der/die Spieler/in auf den Schere-Button drückt, soll der passender
      * Image aufgeladen werden. Danach wird mainProcess() aufgerufen, wo die
@@ -78,6 +81,9 @@ public class HelloController {
             pause2.play();
         });
         pause1.play();
+
+        spielerHighscore.setText(String.valueOf(highscoreSpieler));
+        computerHighscore.setText(String.valueOf(highscoreComputer));
     }
 
 
@@ -118,11 +124,15 @@ public class HelloController {
     private void winStyle() { // einfacher glow effekt wenn man gewinnt
         chooseWinner.setStyle("-fx-text-fill: limegreen;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
+
+        highscoreSpieler += 1;
     }
 
     private void loseStyle() {// einfacher glow effekt wenn man verliert
         chooseWinner.setStyle("-fx-text-fill: red;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
+
+        highscoreComputer += 1;
     }
 
     private void drawStyle() {// einfacher glow effekt wenn es ein unentschieden ist
