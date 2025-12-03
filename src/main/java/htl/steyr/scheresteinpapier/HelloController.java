@@ -1,9 +1,11 @@
 package htl.steyr.scheresteinpapier;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.util.Random;
 
@@ -56,16 +58,28 @@ public class HelloController {
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
     public void mainProcess() {
-        String[] wahl = {"schere.png", "stein.png", "papier.png"}; //Dateioptionen werden bekannt gegeben
+        String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
+        computer = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
 
-        //durch ".nextInt(3)" weiß der Computer, dass nur 3 Optionen zu verfügen stehen
-        computer = wahl[rand.nextInt(3)]; //random wird eine Option gewählt
+        pBar.setProgress(0); // resette die bar jedes mal wenn main process aufgerufen wird
 
-        //der ausgwählter Text wird hinter dem URL eingesetzt, wodurch der passende Image-URL ensteht
-        playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+        PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
+        pause1.setOnFinished(e -> {// (e -> { ... }) ist ein Lambda: Kurzform für eine Methode, die auf das Ereignis e reagiert
 
-        chooseAWinner();
+            pBar.setProgress(0.34);
+
+            PauseTransition pause2 = new PauseTransition(Duration.seconds(0.5));
+            pause2.setOnFinished(ev -> {
+                pBar.setProgress(1.0);
+
+                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+                chooseAWinner();
+            });
+            pause2.play();
+        });
+        pause1.play();
     }
+
 
     /**
      * Bringt alles auf den Anfangszustand - das Spiel kann neu beginnen.
@@ -78,6 +92,7 @@ public class HelloController {
         chooseWinner.setText("Willkommen!!");
         chooseWinner.setStyle("-fx-text-fill: black;"); // Farbe wird auf schwarz zurückgesetzt
         chooseWinner.setEffect(null); // entfernt den Glow effekt
+        pBar.setProgress(0); // resette die bar jedes mal wenn main process aufgerufen wird
     }
 
   // Vergleicht Wahl des Spielers und Computers und entscheidet bassierend darauf wer gewonnen hat
