@@ -113,6 +113,12 @@ public class HelloController {
         } else if (playerChoice.equals("papier.png") && computer.equals("stein.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
+        } else if (playerChoice.equals("brunnen.png")&&computer.equals("stein.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals("brunnen.png")&&computer.equals("schere.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
         } else if (playerChoice.equals(computer)) {
             chooseWinner.setText("Unentschieden!");
             drawStyle();
@@ -145,6 +151,7 @@ public class HelloController {
 
     public void onWellClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
+        playerChoice="brunnen.png";
         mainProcess();
     }
 }
