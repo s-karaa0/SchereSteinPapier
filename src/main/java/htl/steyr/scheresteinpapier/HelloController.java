@@ -46,7 +46,6 @@ public class HelloController {
     public void onScissorsClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/schere.png"))));
         playerChoice = "schere.png"; //speichert Spielers Auswahl
-        playerChoice = "schere.png";
         mainProcess();
     }
 
@@ -57,7 +56,6 @@ public class HelloController {
     public void onRockClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/stein.png"))));
         playerChoice = "stein.png"; //speichert Spielers Auswahl
-        playerChoice = "stein.png";
         mainProcess();
     }
 
@@ -67,7 +65,6 @@ public class HelloController {
     public void onPaperClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/papier.png"))));
         playerChoice = "papier.png"; //speichert Spielers Auswahl
-        playerChoice = "papier.png";
         mainProcess();
     }
 
@@ -78,8 +75,6 @@ public class HelloController {
     public void mainProcess() {
         String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
         computerChoice = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
-        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"}; // Optionen
-        computer = wahl[rand.nextInt(4)]; // zufällige Wahl des Computers
 
         pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
         pBar.setProgress(0);
@@ -93,7 +88,7 @@ public class HelloController {
                 pBar.setProgress(1.0);
 
                 playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
-                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 chooseAWinner();
                 spielerHighscoreFeld.setText(String.valueOf(highscoreSpieler));
                 computerHighscoreFeld.setText(String.valueOf(highscoreComputer));
@@ -137,7 +132,6 @@ public class HelloController {
     public void chooseAWinner() {
 
         if (playerChoice.equals("schere.png") && computerChoice.equals("papier.png")) {
-        if (playerChoice.equals("schere.png") && computer.equals("papier.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
         } else if (playerChoice.equals("stein.png") && computerChoice.equals("schere.png")) {
@@ -146,14 +140,13 @@ public class HelloController {
         } else if (playerChoice.equals("papier.png") && computerChoice.equals("stein.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
+        } else if (playerChoice.equals("brunnen.png") && computerChoice.equals("stein.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals("brunnen.png") && computerChoice.equals("schere.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
         } else if (playerChoice.equals(computerChoice)) {
-        } else if (playerChoice.equals("brunnen.png")&&computer.equals("stein.png")) {
-            chooseWinner.setText("Du gewinnst!");
-            winStyle();
-        } else if (playerChoice.equals("brunnen.png")&&computer.equals("schere.png")) {
-            chooseWinner.setText("Du gewinnst!");
-            winStyle();
-        } else if (playerChoice.equals(computer)) {
             chooseWinner.setText("Unentschieden!");
             drawStyle();
         } else {
@@ -181,8 +174,8 @@ public class HelloController {
         chooseWinner.setStyle("-fx-text-fill: gray;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.3));
         String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"};
-        computer = wahl[rand.nextInt(4)];
-        playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+        computerChoice = wahl[rand.nextInt(4)];
+        playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
     }
 
     /**
