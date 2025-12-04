@@ -149,6 +149,11 @@ public class HelloController {
         playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
     }
 
+    /**
+     * Diese Funktion soll ähnlich wie die oberen Funktion ein Bild eines Brunnen darstellen
+     *
+     *
+     */
     public void onWellClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
         playerChoice="brunnen.png";
