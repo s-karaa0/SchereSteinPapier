@@ -245,13 +245,14 @@ public class HelloController {
                 nextSong = "/sounds/lease.mp3";
             }
 
-            // Media neu laden
+            // Media neu laden um den neuen song zu spielen
             Media pick = new Media(getClass().getResource(nextSong).toExternalForm());
             backgroundMusic = new MediaPlayer(pick);
 
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
             backgroundMusic.play();
 
+            // Wechselt den Zustand damit beim nächsten drücken des knopfes der andere Track gewählt wird
             isLeaseMusic = !isLeaseMusic;
 
         } catch (Exception e) {
