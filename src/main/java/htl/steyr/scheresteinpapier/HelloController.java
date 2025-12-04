@@ -31,6 +31,7 @@ public class HelloController {
     public String playerChoice;
     private boolean answer;
     private MediaPlayer backgroundMusic;  //Hintergrundmusik
+    public boolean isLeaseMusic = true; //anfangslied heisst lease deshalb der name
 
     private int highscoreSpieler = 0; //Anzahl der Gewinne von Spieler
     private int highscoreComputer = 0; //Anzahl der Gewinne von Computer
@@ -230,4 +231,32 @@ public class HelloController {
             System.out.println("Musik konnte nicht geladen werden: " + e.getMessage());
         }
     }
+
+    public void ChangeMusicClicked(ActionEvent actionEvent) {
+        String nextSong;
+        try {
+
+            backgroundMusic.stop();
+
+            // Hier wird entschieden welcher song gespielt werden soll
+            if (isLeaseMusic) {
+                nextSong = "/sounds/Yakuza.mp3";
+            } else {
+                nextSong = "/sounds/lease.mp3";
+            }
+
+            // Media neu laden
+            Media pick = new Media(getClass().getResource(nextSong).toExternalForm());
+            backgroundMusic = new MediaPlayer(pick);
+
+            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusic.play();
+
+            isLeaseMusic = !isLeaseMusic;
+
+        } catch (Exception e) {
+            System.out.println("Musik konnte nicht gewechselt werden: " + e.getMessage());
+        }
+    }
 }
+
