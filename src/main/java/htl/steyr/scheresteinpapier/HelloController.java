@@ -80,10 +80,14 @@ public class HelloController {
         pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
         pBar.setProgress(0);
 
+        //  kurze Pause bevor etwas passiert (0.5 Sekunden)
         PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
+
+        // Code, der nach der ersten Pause passiert
         pause1.setOnFinished(e -> {
             pBar.setProgress(0.34);
 
+            //  kurze Pause bevor etwas passiert (0.5 Sekunden)
             PauseTransition pause2 = new PauseTransition(Duration.seconds(0.5));
             pause2.setOnFinished(ev -> {
                 pBar.setProgress(1.0);
@@ -102,8 +106,10 @@ public class HelloController {
                     computerSerieFeld.setText(String.valueOf(serieComputer));
                 }
             });
+            //zweite pause starten
             pause2.play();
         });
+        //erste Pause starten
         pause1.play();
 
 
