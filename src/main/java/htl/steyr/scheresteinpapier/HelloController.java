@@ -240,7 +240,7 @@ public class HelloController {
 
             // Hier wird entschieden welcher song gespielt werden soll
             if (isLeaseMusic) {
-                nextSong = "/sounds/Yakuza.mp3";
+                nextSong = "/sounds/Ocean.mp3";
             } else {
                 nextSong = "/sounds/lease.mp3";
             }
