@@ -9,26 +9,42 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.scheresteinpapier.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.scheresteinpapier.HelloController">
    <children>
-      <ProgressBar fx:id="pBar" layoutX="105.0" layoutY="248.0" prefWidth="200.0" progress="0.0" />
-      <Button layoutX="110.0" layoutY="452.0" mnemonicParsing="false" onAction="#onScissorsClicked" text="Schere" />
-      <Button layoutX="187.0" layoutY="452.0" mnemonicParsing="false" onAction="#onRockClicked" text="Stein" />
-      <Button layoutX="249.0" layoutY="452.0" mnemonicParsing="false" onAction="#onPaperClicked" text="Papier" />
-      <Text layoutX="184.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler1" />
-      <Text layoutX="184.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer" />
-      <ImageView fx:id="playerBox1" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="playerBox2" fitHeight="150.0" fitWidth="200.0" layoutX="110.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
-       <Label fx:id="chooseWinner" layoutX="310.0" layoutY="248.0" prefHeight="18.0" prefWidth="100.0" text="Willkommen!!" />
-       <Label layoutX="176.0" layoutY="14.0" text="Highscore:" />
-      <TextField fx:id="spielerHighscore" layoutX="143.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
-      <TextField fx:id="computerHighscore" layoutX="223.0" layoutY="51.0" prefHeight="25.0" prefWidth="42.0" />
-      <Label layoutX="144.0" layoutY="31.0" text="Spieler1        Computer" />
-      <Label layoutX="199.0" layoutY="25.0" prefHeight="65.0" prefWidth="9.0" text="|">
+      <ProgressBar fx:id="pBar" layoutX="126.0" layoutY="284.0" prefWidth="200.0" progress="0.0" />
+      <Button layoutX="132.0" layoutY="517.0" mnemonicParsing="false" onAction="#onScissorsClicked" text="Schere" />
+      <Button layoutX="209.0" layoutY="517.0" mnemonicParsing="false" onAction="#onRockClicked" text="Stein" />
+      <Button layoutX="271.0" layoutY="517.0" mnemonicParsing="false" onAction="#onPaperClicked" text="Papier" />
+      <Text layoutX="205.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler1" />
+      <Text layoutX="205.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer" />
+      <ImageView fx:id="playerBox1" fitHeight="150.0" fitWidth="200.0" layoutX="132.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="playerBox2" fitHeight="150.0" fitWidth="200.0" layoutX="131.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="chooseWinner" layoutX="331.0" layoutY="284.0" prefHeight="18.0" prefWidth="100.0" text="Willkommen!!" />
+      <Label layoutX="92.0" layoutY="24.0" text="Highscore:" />
+      <TextField fx:id="spielerHighscoreFeld" layoutX="59.0" layoutY="61.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="computerHighscoreFeld" layoutX="139.0" layoutY="61.0" prefHeight="25.0" prefWidth="42.0" />
+      <Label layoutX="60.0" layoutY="41.0" text="Spieler             Computer" />
+      <Label layoutX="115.0" layoutY="35.0" prefHeight="65.0" prefWidth="9.0" text="|">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" onAction="#resetButtonClicked" text="RESET" />
+      <Button layoutX="48.0" layoutY="280.0" mnemonicParsing="false" onAction="#resetButtonClicked" text="RESET" />
+      <AnchorPane fx:id="anchorPaneForSeries" layoutX="132.0" layoutY="213.0" prefHeight="133.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="seriesText" layoutX="13.0" layoutY="14.0" prefHeight="65.0" prefWidth="173.0" />
+            <Button fx:id="yesButton" layoutX="122.0" layoutY="85.0" mnemonicParsing="false" onAction="#yesButtonForSeries" text="YES" />
+            <Button fx:id="noButton" layoutX="43.0" layoutY="85.0" mnemonicParsing="false" onAction="#noButtonForSeries" text="NO" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="337.0" layoutY="27.0" text="Serie:" />
+      <TextField fx:id="spielerSerieFeld" layoutX="291.0" layoutY="62.0" prefHeight="25.0" prefWidth="42.0" />
+      <TextField fx:id="computerSerieFeld" layoutX="371.0" layoutY="62.0" prefHeight="25.0" prefWidth="42.0" />
+      <Label layoutX="292.0" layoutY="42.0" text="Spieler            Computer" />
+      <Label layoutX="347.0" layoutY="36.0" prefHeight="65.0" prefWidth="9.0" text="|">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

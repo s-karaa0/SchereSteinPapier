@@ -1,0 +1,15 @@
+#anchorPaneForSeries {
+    -fx-background-color: #c5c5c5;
+    -fx-border-color: black;
+    visibility: hidden;
+}
+
+#yesButton {
+    -fx-background-color: #60c360;
+    -fx-border-color: black;
+}
+
+#noButton {
+    -fx-background-color: #e82c2c;
+    -fx-border-color: black;
+}

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.util.Random;
@@ -17,13 +18,23 @@ public class HelloController {
 
 
     private final Random rand = new Random();
-    public TextField spielerHighscore;
-    public TextField computerHighscore;
-    private String computer;
+    public TextField spielerHighscoreFeld; //TextField für Spieler-Highscore
+    public TextField computerHighscoreFeld; //TextField für Computer-Highscore
+    public AnchorPane anchorPaneForSeries;
+    public Button yesButton;
+    public Button noButton;
+    public Label seriesText;
+    public TextField spielerSerieFeld;
+    public TextField computerSerieFeld;
+    private String computerChoice;
     public String playerChoice;
+    private boolean answer;
 
-    private int highscoreSpieler = 0;
-    private int highscoreComputer = 0;
+    private int highscoreSpieler = 0; //Anzahl der Gewinne von Spieler
+    private int highscoreComputer = 0; //Anzahl der Gewinne von Computer
+
+    private int serieSpieler = 0; //Anzahl der Serien von Spieler
+    private int serieComputer = 0; //Anzahl der Serien von Computer
 
     /**
      * Wenn der/die Spieler/in auf den Schere-Button drückt, soll der passender
@@ -32,7 +43,7 @@ public class HelloController {
      */
     public void onScissorsClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/schere.png"))));
-        playerChoice = "schere.png"; // saves players choice
+        playerChoice = "schere.png"; //speichert Spielers Auswahl
         mainProcess();
     }
 
@@ -42,9 +53,8 @@ public class HelloController {
      */
     public void onRockClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/stein.png"))));
-        playerChoice = "stein.png"; // saves players choice
+        playerChoice = "stein.png"; //speichert Spielers Auswahl
         mainProcess();
-
     }
 
     /**
@@ -52,7 +62,7 @@ public class HelloController {
      */
     public void onPaperClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/papier.png"))));
-        playerChoice = "papier.png"; // saves players choice
+        playerChoice = "papier.png"; //speichert Spielers Auswahl
         mainProcess();
     }
 
@@ -62,9 +72,9 @@ public class HelloController {
      */
     public void mainProcess() {
         String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
-        computer = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
+        computerChoice = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
 
-        pBar.setProgress(0); // resette die bar jedes mal wenn main process aufgerufen wird
+        pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
 
         PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
         pause1.setOnFinished(e -> {// (e -> { ... }) ist ein Lambda: Kurzform für eine Methode, die auf das Ereignis e reagiert
@@ -75,45 +85,59 @@ public class HelloController {
             pause2.setOnFinished(ev -> {
                 pBar.setProgress(1.0);
 
-                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computer))));
+                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 chooseAWinner();
+                spielerHighscoreFeld.setText(String.valueOf(highscoreSpieler));
+                computerHighscoreFeld.setText(String.valueOf(highscoreComputer));
+
+                if (highscoreSpieler >= 2 || highscoreComputer >= 2) {
+                    if (answer == false) {
+                        serie();
+                    }
+                    spielerSerieFeld.setText(String.valueOf(serieSpieler));
+                    computerSerieFeld.setText(String.valueOf(serieComputer));
+                }
             });
             pause2.play();
         });
         pause1.play();
 
-        spielerHighscore.setText(String.valueOf(highscoreSpieler));
-        computerHighscore.setText(String.valueOf(highscoreComputer));
+
     }
 
 
     /**
-     * Bringt alles auf den Anfangszustand - das Spiel kann neu beginnen.
+     * Bringt alles auf den Anfangszustand -> das Spiel kann neu beginnen.
      */
-    public void resetButtonClicked(ActionEvent actionEvent) {
+    public void resetButtonClicked() {
         playerBox1.setImage(null);
         playerBox2.setImage(null);
-        spielerHighscore.setText("0");
-        computerHighscore.setText("0");
+        spielerHighscoreFeld.setText("0");
+        computerHighscoreFeld.setText("0");
         chooseWinner.setText("Willkommen!!");
-        chooseWinner.setStyle("-fx-text-fill: black;"); // Farbe wird auf schwarz zurückgesetzt
-        chooseWinner.setEffect(null); // entfernt den Glow effekt
-        pBar.setProgress(0); // resette die bar jedes mal wenn main process aufgerufen wird
+        chooseWinner.setStyle("-fx-text-fill: black;"); //Farbe wird auf schwarz zurückgesetzt
+        chooseWinner.setEffect(null); //entfernt den Glow effekt
+        pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
+        highscoreComputer = 0;
+        highscoreSpieler = 0;
     }
 
-  // Vergleicht Wahl des Spielers und Computers und entscheidet bassierend darauf wer gewonnen hat
+    /**
+     * Diese Methode vergleicht die Wahl des Spielers und Computers und entscheidet
+     * bassierend darauf wer gewonnen hat.
+     */
     public void chooseAWinner() {
 
-        if (playerChoice.equals("schere.png") && computer.equals("papier.png")) {
+        if (playerChoice.equals("schere.png") && computerChoice.equals("papier.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
-        } else if (playerChoice.equals("stein.png") && computer.equals("schere.png")) {
+        } else if (playerChoice.equals("stein.png") && computerChoice.equals("schere.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
-        } else if (playerChoice.equals("papier.png") && computer.equals("stein.png")) {
+        } else if (playerChoice.equals("papier.png") && computerChoice.equals("stein.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
-        } else if (playerChoice.equals(computer)) {
+        } else if (playerChoice.equals(computerChoice)) {
             chooseWinner.setText("Unentschieden!");
             drawStyle();
         } else {
@@ -121,23 +145,53 @@ public class HelloController {
             loseStyle();
         }
     }
-    private void winStyle() { // einfacher glow effekt wenn man gewinnt
+
+
+    private void winStyle() { //einfacher glow effekt wenn man gewinnt
         chooseWinner.setStyle("-fx-text-fill: limegreen;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
 
         highscoreSpieler += 1;
     }
 
-    private void loseStyle() {// einfacher glow effekt wenn man verliert
+    private void loseStyle() { //einfacher glow effekt wenn man verliert
         chooseWinner.setStyle("-fx-text-fill: red;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
 
         highscoreComputer += 1;
     }
 
-    private void drawStyle() {// einfacher glow effekt wenn es ein unentschieden ist
+    private void drawStyle() { //einfacher glow effekt wenn es ein unentschieden ist
         chooseWinner.setStyle("-fx-text-fill: gray;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.3));
     }
 
+    private void serie() {
+        anchorPaneForSeries.setVisible(true);
+
+        if (highscoreSpieler > highscoreComputer) {
+            seriesText.setText("Du hast 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
+            serieSpieler += 1;
+        } else {
+            seriesText.setText("Der Computer hat 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
+            serieComputer += 1;
+        }
+
+        if (yesButton.isPressed()) {
+            yesButtonForSeries();
+        } else if (noButton.isPressed()) {
+            noButtonForSeries();
+        }
+    }
+
+    public void yesButtonForSeries() {
+        resetButtonClicked();
+        answer = false;
+        anchorPaneForSeries.setVisible(false);
+    }
+
+    public void noButtonForSeries() {
+        answer = true;
+        anchorPaneForSeries.setVisible(false);
+    }
 }
