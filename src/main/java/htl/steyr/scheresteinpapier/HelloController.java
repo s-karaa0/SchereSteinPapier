@@ -33,8 +33,8 @@ public class HelloController {
     private MediaPlayer backgroundMusic;  //Hintergrundmusik
     public boolean isLeaseMusic = true; //anfangslied heisst lease deshalb der name
 
-    private int highscoreSpieler = 0; //Anzahl der Gewinne von Spieler
-    private int highscoreComputer = 0; //Anzahl der Gewinne von Computer
+    private int highscoreSpieler = 0; //Anzahl der Siege von Spieler
+    private int highscoreComputer = 0; //Anzahl der Siege von Computer
 
     private int serieSpieler = 0; //Anzahl der Serien von Spieler
     private int serieComputer = 0; //Anzahl der Serien von Computer
@@ -74,11 +74,10 @@ public class HelloController {
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
     public void mainProcess() {
-        String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
-        computerChoice = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
+        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"}; // Optionen
+        computerChoice = wahl[rand.nextInt(4)]; // zufällige Wahl des Computers
 
         pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
-        pBar.setProgress(0);
 
         //  kurze Pause bevor etwas passiert (0.5 Sekunden)
         PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
@@ -92,7 +91,6 @@ public class HelloController {
             pause2.setOnFinished(ev -> {
                 pBar.setProgress(1.0);
 
-                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 chooseAWinner();
                 spielerHighscoreFeld.setText(String.valueOf(highscoreSpieler));
@@ -127,7 +125,7 @@ public class HelloController {
         chooseWinner.setText("Willkommen!!");
         chooseWinner.setStyle("-fx-text-fill: black;"); //Farbe wird auf schwarz zurückgesetzt
         chooseWinner.setEffect(null); //entfernt den Glow effekt
-        pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
+        pBar.setProgress(0);
         highscoreComputer = 0;
         highscoreSpieler = 0;
     }
@@ -151,6 +149,9 @@ public class HelloController {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
         } else if (playerChoice.equals("brunnen.png") && computerChoice.equals("schere.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
+        } else if (playerChoice.equals("papier.png") && computerChoice.equals("brunnen.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
         } else if (playerChoice.equals(computerChoice)) {
@@ -180,9 +181,6 @@ public class HelloController {
     private void drawStyle() { //einfacher glow effekt wenn es ein unentschieden ist
         chooseWinner.setStyle("-fx-text-fill: gray;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.3));
-        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"};
-        computerChoice = wahl[rand.nextInt(4)];
-        playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
     }
 
     /**
