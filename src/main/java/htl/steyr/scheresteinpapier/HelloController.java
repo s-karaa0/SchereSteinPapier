@@ -161,7 +161,6 @@ public class HelloController {
         }
     }
 
-
     private void winStyle() { //einfacher glow effekt wenn man gewinnt
         chooseWinner.setStyle("-fx-text-fill: limegreen;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.6));
