@@ -17,7 +17,6 @@ public class HelloController {
     public ImageView playerBox2; //Computer-Bild
     public Label chooseWinner;  // label that shows winner
 
-
     private final Random rand = new Random();
     public TextField spielerHighscoreFeld; //TextField für Spieler-Highscore
     public TextField computerHighscoreFeld; //TextField für Computer-Highscore
@@ -31,6 +30,7 @@ public class HelloController {
     public String playerChoice;
     private boolean answer;
     private MediaPlayer backgroundMusic;  //Hintergrundmusik
+    private MediaPlayer effectMusic;
 
     private int highscoreSpieler = 0; //Anzahl der Gewinne von Spieler
     private int highscoreComputer = 0; //Anzahl der Gewinne von Computer
@@ -104,8 +104,6 @@ public class HelloController {
             pause2.play();
         });
         pause1.play();
-
-
     }
 
 
@@ -180,8 +178,6 @@ public class HelloController {
 
     /**
      * Diese Funktion soll ähnlich wie die oberen Funktion ein Bild eines Brunnen darstellen
-     *
-     *
      */
     public void onWellClicked(ActionEvent actionEvent) {
         playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
@@ -195,9 +191,13 @@ public class HelloController {
         if (highscoreSpieler > highscoreComputer) {
             seriesText.setText("Du hast 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
             serieSpieler += 1;
+
+            playEffect("victory-sound.mp3");
         } else {
             seriesText.setText("Der Computer hat 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
             serieComputer += 1;
+
+            playEffect("sad-trombone.mp3");
         }
 
         if (yesButton.isPressed()) {
@@ -211,16 +211,24 @@ public class HelloController {
         resetButtonClicked();
         answer = false;
         anchorPaneForSeries.setVisible(false);
+
+        // Hintergrund wieder starten (falls Effekt noch läuft)
+        if (effectMusic != null) effectMusic.stop();
+        if (backgroundMusic != null) backgroundMusic.play();
     }
 
     public void noButtonForSeries() {
         answer = true;
         anchorPaneForSeries.setVisible(false);
+
+        // Hintergrund wieder starten (falls Effekt noch läuft)
+        if (effectMusic != null) effectMusic.stop();
+        if (backgroundMusic != null) backgroundMusic.play();
     }
 
     public void initialize() {
         try {
-            Media pick = new Media(getClass().getResource("/sounds/lease.mp3").toExternalForm());
+            Media pick = new Media(getClass().getResource("/sounds/Lease.mp3").toExternalForm());
             backgroundMusic = new MediaPlayer(pick);
 
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE); // spielt die mp3 endlos
@@ -230,4 +238,22 @@ public class HelloController {
             System.out.println("Musik konnte nicht geladen werden: " + e.getMessage());
         }
     }
+
+    private void playEffect(String soundFile) {
+        if (backgroundMusic != null) {
+            backgroundMusic.pause();
+        }
+
+        if (effectMusic != null) {
+            effectMusic.stop();
+        }
+
+        Media effect = new Media(getClass().getResource("/sounds/" + soundFile).toExternalForm());
+        effectMusic = new MediaPlayer(effect);
+        effectMusic.play();
+
+        // Wenn der Effekt fertig ist → Hintergrund weiter
+        effectMusic.setOnEndOfMedia(() -> backgroundMusic.play());
+    }
+
 }

@@ -13,3 +13,15 @@
     -fx-background-color: #e82c2c;
     -fx-border-color: black;
 }
+
+#anchorPane {
+    -fx-background-color: #f3f3e6;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #cdf1f8;
+    -fx-border-color: black;
+    -fx-border-width: 0.5px;
+}
