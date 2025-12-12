@@ -31,9 +31,10 @@ public class HelloController {
     private boolean answer;
     private MediaPlayer backgroundMusic;  //Hintergrundmusik
     private MediaPlayer effectMusic;
+    public boolean isLeaseMusic = true; //anfangslied heisst lease deshalb der name
 
-    private int highscoreSpieler = 0; //Anzahl der Gewinne von Spieler
-    private int highscoreComputer = 0; //Anzahl der Gewinne von Computer
+    private int highscoreSpieler = 0; //Anzahl der Siege von Spieler
+    private int highscoreComputer = 0; //Anzahl der Siege von Computer
 
     private int serieSpieler = 0; //Anzahl der Serien von Spieler
     private int serieComputer = 0; //Anzahl der Serien von Computer
@@ -73,21 +74,23 @@ public class HelloController {
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
     public void mainProcess() {
-        String[] wahl = {"schere.png", "stein.png", "papier.png"}; // Optionen
-        computerChoice = wahl[rand.nextInt(3)]; // zufällige Wahl des Computers
+        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"}; // Optionen
+        computerChoice = wahl[rand.nextInt(4)]; // zufällige Wahl des Computers
 
         pBar.setProgress(0); //resette die bar jedes mal wenn main process aufgerufen wird
-        pBar.setProgress(0);
 
+        //  kurze Pause bevor etwas passiert (0.5 Sekunden)
         PauseTransition pause1 = new PauseTransition(Duration.seconds(0.5));
+
+        // Code, der nach der ersten Pause passiert
         pause1.setOnFinished(e -> {
             pBar.setProgress(0.34);
 
+            //  kurze Pause bevor etwas passiert (0.5 Sekunden)
             PauseTransition pause2 = new PauseTransition(Duration.seconds(0.5));
             pause2.setOnFinished(ev -> {
                 pBar.setProgress(1.0);
 
-                playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
                 chooseAWinner();
                 spielerHighscoreFeld.setText(String.valueOf(highscoreSpieler));
@@ -101,8 +104,10 @@ public class HelloController {
                     computerSerieFeld.setText(String.valueOf(serieComputer));
                 }
             });
+            //zweite pause starten
             pause2.play();
         });
+        //erste Pause starten
         pause1.play();
     }
 
@@ -144,6 +149,9 @@ public class HelloController {
         } else if (playerChoice.equals("brunnen.png") && computerChoice.equals("schere.png")) {
             chooseWinner.setText("Du gewinnst!");
             winStyle();
+        } else if (playerChoice.equals("papier.png") && computerChoice.equals("brunnen.png")) {
+            chooseWinner.setText("Du gewinnst!");
+            winStyle();
         } else if (playerChoice.equals(computerChoice)) {
             chooseWinner.setText("Unentschieden!");
             drawStyle();
@@ -171,9 +179,6 @@ public class HelloController {
     private void drawStyle() { //einfacher glow effekt wenn es ein unentschieden ist
         chooseWinner.setStyle("-fx-text-fill: gray;");
         chooseWinner.setEffect(new javafx.scene.effect.Glow(0.3));
-        String[] wahl = {"schere.png", "stein.png", "papier.png", "brunnen.png"};
-        computerChoice = wahl[rand.nextInt(4)];
-        playerBox2.setImage(new Image(String.valueOf(getClass().getResource("/images/" + computerChoice))));
     }
 
     /**
@@ -228,7 +233,7 @@ public class HelloController {
 
     public void initialize() {
         try {
-            Media pick = new Media(getClass().getResource("/sounds/Lease.mp3").toExternalForm());
+            Media pick = new Media(getClass().getResource("/sounds/lease.mp3").toExternalForm());
             backgroundMusic = new MediaPlayer(pick);
 
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE); // spielt die mp3 endlos
@@ -256,4 +261,33 @@ public class HelloController {
         effectMusic.setOnEndOfMedia(() -> backgroundMusic.play());
     }
 
+
+    public void ChangeMusicClicked(ActionEvent actionEvent) {
+        String nextSong;
+        try {
+
+            backgroundMusic.stop();
+
+            // Hier wird entschieden welcher song gespielt werden soll
+            if (isLeaseMusic) {
+                nextSong = "/sounds/Ocean.mp3";
+            } else {
+                nextSong = "/sounds/lease.mp3";
+            }
+
+            // Media neu laden um den neuen song zu spielen
+            Media pick = new Media(getClass().getResource(nextSong).toExternalForm());
+            backgroundMusic = new MediaPlayer(pick);
+
+            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusic.play();
+
+            // Wechselt den Zustand damit beim nächsten drücken des knopfes der andere Track gewählt wird
+            isLeaseMusic = !isLeaseMusic;
+
+        } catch (Exception e) {
+            System.out.println("Musik konnte nicht gewechselt werden: " + e.getMessage());
+        }
+    }
 }
+
