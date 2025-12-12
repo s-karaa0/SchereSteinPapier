@@ -70,6 +70,15 @@ public class HelloController {
     }
 
     /**
+     * Diese Methode soll ähnlich wie die oberen Methode ein Bild eines Brunnen darstellen
+     */
+    public void onWellClicked(ActionEvent actionEvent) {
+        playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
+        playerChoice="brunnen.png";
+        mainProcess();
+    }
+
+    /**
      * In dieser Methode ist die Hauptfunktion implementiert worden. Sie ist
      * passend zu alle anderen Methoden, die diese aufrufen.
      */
@@ -181,29 +190,24 @@ public class HelloController {
     }
 
     /**
-     * Diese Funktion soll ähnlich wie die oberen Funktion ein Bild eines Brunnen darstellen
+     * Wird ausgeführt wenn eine Serie erreicht wurde.
      */
-    public void onWellClicked(ActionEvent actionEvent) {
-        playerBox1.setImage(new Image(String.valueOf(getClass().getResource("/images/brunnen.png"))));
-        playerChoice="brunnen.png";
-        mainProcess();
-    }
-
     private void serie() {
-        anchorPaneForSeries.setVisible(true);
+        anchorPaneForSeries.setVisible(true); //zwietes Fenster sichtbar machen
 
         if (highscoreSpieler > highscoreComputer) {
             seriesText.setText("Du hast 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
             serieSpieler += 1;
 
-            playEffect("victory-sound.mp3");
+            playEffect("victory-sound.mp3"); //Erfolgssound
         } else {
             seriesText.setText("Der Computer hat 10mal gewonnen\n-> Eine Serie geschafft.\nWillst du neu anfangen?");
             serieComputer += 1;
 
-            playEffect("sad-trombone.mp3");
+            playEffect("sad-trombone.mp3"); //Verlustsound
         }
 
+        //Buttonabfrage
         if (yesButton.isPressed()) {
             yesButtonForSeries();
         } else if (noButton.isPressed()) {
@@ -230,6 +234,7 @@ public class HelloController {
         if (backgroundMusic != null) backgroundMusic.play();
     }
 
+    //Hintergrundmusik beim Start
     public void initialize() {
         try {
             Media pick = new Media(getClass().getResource("/sounds/lease.mp3").toExternalForm());
@@ -243,6 +248,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Spielt einen Audioeffekt und pausiert Hintergrundmusik
+     */
     private void playEffect(String soundFile) {
         if (backgroundMusic != null) {
             backgroundMusic.pause();
@@ -260,8 +268,10 @@ public class HelloController {
         effectMusic.setOnEndOfMedia(() -> backgroundMusic.play());
     }
 
-
-    public void ChangeMusicClicked(ActionEvent actionEvent) {
+    /**
+     * wechsel zwischen zwei Hintergrundlieder
+     */
+    public void changeMusicClicked(ActionEvent actionEvent) {
         String nextSong;
         try {
 
@@ -271,7 +281,7 @@ public class HelloController {
             if (isLeaseMusic) {
                 nextSong = "/sounds/Ocean.mp3";
             } else {
-                nextSong = "/sounds/lease.mp3";
+                nextSong = "/sounds/Lease.mp3";
             }
 
             // Media neu laden um den neuen song zu spielen

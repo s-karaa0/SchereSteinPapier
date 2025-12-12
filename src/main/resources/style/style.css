@@ -2,26 +2,60 @@
     -fx-background-color: #c5c5c5;
     -fx-border-color: black;
     visibility: hidden;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
 }
 
 #yesButton {
     -fx-background-color: #60c360;
     -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-font-weight: bold;
 }
 
 #noButton {
     -fx-background-color: #e82c2c;
     -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-font-weight: bold;
 }
 
 #anchorPane {
     -fx-background-color: #f3f3e6;
     -fx-border-color: black;
     -fx-border-width: 2px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
 }
 
 .button {
     -fx-background-color: #cdf1f8;
     -fx-border-color: black;
     -fx-border-width: 0.5px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 13px;
+}
+
+#chooseWinner {
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-alignment: center;
+}
+
+#seriesText {
+    -fx-text-alignment: center;
 }
