@@ -105,7 +105,7 @@ public class HelloController {
                 spielerHighscoreFeld.setText(String.valueOf(highscoreSpieler));
                 computerHighscoreFeld.setText(String.valueOf(highscoreComputer));
 
-                if (highscoreSpieler >= 2 || highscoreComputer >= 2) {
+                if (highscoreSpieler >= 10 || highscoreComputer >= 10) {
                     if (answer == false) {
                         serie();
                     }
